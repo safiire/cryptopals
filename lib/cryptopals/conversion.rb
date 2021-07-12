@@ -9,7 +9,7 @@ module Cryptopals
     end
 
     def self.hex2bytes(string)
-      string = '0' + string if string.size.odd?
+      string = "0#{string}" if string.size.odd?
       string.scan(/../).map { |hex| hex.to_i(16).chr }.join
     end
 
