@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'cryptopals/conversion'
+require_relative 'cryptopals/cyclic_xor_keysize'
 require_relative 'cryptopals/english'
 require_relative 'cryptopals/hamming_distance'
 require_relative 'cryptopals/operations'

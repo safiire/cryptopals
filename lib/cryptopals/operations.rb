@@ -11,7 +11,7 @@ module Cryptopals
     end
 
     def self.cyclic_xor(a, b)
-      smaller, larger = [a, b].sort_by{|str| str.bytesize }
+      smaller, larger = [a, b].sort_by(&:bytesize)
       larger.bytes.zip(smaller.bytes.cycle).map { |(x, y)| (x ^ y).chr }.join
     end
   end
