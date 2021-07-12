@@ -15,7 +15,7 @@ RSpec.describe(Cryptopals::SingleByteXor) do
   end
 
   describe '.crack' do
-    let(:result) { described_class.crack(ciphertext) }
+    let(:result) { described_class.crack(ciphertext.hex2bytes) }
 
     context 'when given challenge 3' do
       let(:ciphertext) { '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736' }
@@ -30,7 +30,7 @@ RSpec.describe(Cryptopals::SingleByteXor) do
     context 'when cracking our own message' do
       let(:key) { 0xaf }
       let(:plaintext) { 'Lets get cracking' }
-      let(:ciphertext) { described_class.encrypt(plaintext, key).bytes2hex }
+      let(:ciphertext) { described_class.encrypt(plaintext, key) }
       let(:result) { described_class.crack(ciphertext) }
 
       it 'finds the key and cracks the ciphertext' do

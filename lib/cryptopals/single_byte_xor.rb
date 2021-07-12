@@ -5,7 +5,7 @@ module Cryptopals
     Result = Struct.new(:plaintext, :key)
 
     def self.crack(string)
-      new.crack(string.hex2bytes)
+      new.crack(string)
     end
 
     def self.encrypt(string, key)

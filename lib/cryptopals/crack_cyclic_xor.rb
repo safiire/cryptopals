@@ -10,7 +10,7 @@ module Cryptopals
       key_size = CyclicXorKeysize.call(ciphertext).first
 
       key = transpose_to_columns(ciphertext, key_size).map do |single_byte_xor|
-        SingleByteXor.crack(single_byte_xor.bytes2hex).key.chr
+        SingleByteXor.crack(single_byte_xor).key.chr
       end.join
 
       ciphertext.cyclic_xor(key)
