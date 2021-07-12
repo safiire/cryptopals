@@ -29,7 +29,7 @@ RSpec.describe(Cryptopals::Conversion) do
     end
   end
 
-  describe 'hex2bytes' do
+  describe '.hex2bytes' do
     let(:result) { described_class.hex2bytes(input) }
 
     context 'when given 414141' do
