@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe(Cryptopals::CrackCyclicXor) do
-  describe '.call' do
+RSpec.describe(Cryptopals::CyclicXor) do
+  describe '.crack' do
     let(:ciphertext) do
       path = File.join(__dir__, 'fixtures/challenge6.b64')
       contents = File.read(path)
@@ -13,7 +13,7 @@ RSpec.describe(Cryptopals::CrackCyclicXor) do
       File.read(path)
     end
 
-    let(:result) { described_class.call(ciphertext) }
+    let(:result) { described_class.crack(ciphertext) }
 
     context 'when given challenge6' do
       it 'decrypts the file correctly' do

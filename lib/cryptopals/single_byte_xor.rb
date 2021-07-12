@@ -8,12 +8,12 @@ module Cryptopals
       new.crack(string)
     end
 
-    def self.encrypt(string, key)
-      string.bytes.map { |byte| (byte ^ key).chr }.join
+    def self.encrypt(plaintext, key)
+      plaintext.cyclic_xor(key.to_i.chr)
     end
 
-    def self.decrypt(string, key)
-      encrypt(string, key)
+    def self.decrypt(ciphertext, key)
+      encrypt(ciphertext, key)
     end
 
     def crack(ciphertext)

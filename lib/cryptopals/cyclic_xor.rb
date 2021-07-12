@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Cryptopals
-  class CrackCyclicXor
-    def self.call(ciphertext)
-      new.call(ciphertext)
+  class CyclicXor
+    def self.crack(ciphertext)
+      new.crack(ciphertext)
     end
 
-    def call(ciphertext)
+    def crack(ciphertext)
       key_size = CyclicXorKeysize.call(ciphertext).first
 
       key = transpose_to_columns(ciphertext, key_size).map do |single_byte_xor|
