@@ -19,10 +19,10 @@ module Cryptopals
     private
 
     def hamming_distance_byte(x, y)
-      count_ones(x ^ y)
+      count_one_bits(x ^ y)
     end
 
-    def count_ones(byte)
+    def count_one_bits(byte)
       8.times.reduce(0) do |sum, bit_shift|
         (byte >> bit_shift) & 1 == 1 ? sum.succ : sum
       end
