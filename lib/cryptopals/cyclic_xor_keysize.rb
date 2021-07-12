@@ -34,12 +34,12 @@ module Cryptopals
       HammingDistance.call(a, b) / a.size.to_f
     end
 
-    def adjacent_blocks(string, size)
-      slices = string.bytes.each_slice(size).map do |slice|
-        pad_array(slice, size).map(&:chr).join
+    def adjacent_blocks(ciphertext, size)
+      blocks = ciphertext.bytes.each_slice(size).map do |block|
+        pad_array(block, size).map(&:chr).join
       end
-      slices << padding_block(size) unless slices.size.even?
-      slices.each_slice(2).to_enum
+      blocks << padding_block(size) unless blocks.size.even?
+      blocks.each_slice(2).to_enum
     end
 
     def pad_array(array, size)
