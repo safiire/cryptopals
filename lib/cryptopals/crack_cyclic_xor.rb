@@ -7,10 +7,11 @@ module Cryptopals
     end
 
     def call(ciphertext)
-      key_size = Cryptopals::CyclicXorKeysize.call(ciphertext).first
+      key_size = CyclicXorKeysize.call(ciphertext).first
+
       key = transpose_blocks(ciphertext, key_size).map do |single_xor|
-        SingleByteXor.crack(single_xor.bytes2hex).key
-      end.map(&:chr).join
+        SingleByteXor.crack(single_xor.bytes2hex).key.chr
+      end.join
 
       ciphertext.cyclic_xor(key)
     end
@@ -19,18 +20,14 @@ module Cryptopals
 
     def transpose_blocks(string, size)
       columns = []
-
       string.bytes.each_slice(size) do |slice|
         slice += [0] * (size - slice.size)
         slice.each_with_index do |byte, i|
-          columns[i] ||= []
-          columns[i] << byte
+          columns[i] ||= ''
+          columns[i] += byte.chr
         end
       end
-
-      columns.map do |column|
-        column.map(&:chr).join
-      end
+      columns
     end
   end
 end

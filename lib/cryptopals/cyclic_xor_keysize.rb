@@ -2,6 +2,8 @@
 
 module Cryptopals
   class CyclicXorKeysize
+    Result = Struct.new(:key_size, :average)
+
     def self.call(ciphertext, max_keysize: 40)
       new.call(ciphertext, max_keysize)
     end
@@ -21,11 +23,11 @@ module Cryptopals
 
     def create_result(distances, key_size)
       average = distances.sum / distances.size
-      [key_size, average]
+      Result.new(key_size, average)
     end
 
     def rank_results(results, max: 3)
-      results.sort_by(&:last).map(&:first).take(max)
+      results.sort_by(&:average).map(&:key_size).take(max)
     end
 
     def normalized_hamming(a, b)
@@ -34,11 +36,18 @@ module Cryptopals
 
     def each_slice(string, size)
       slices = string.bytes.each_slice(size).map do |slice|
-        slice += [0] * (size - slice.size)
-        slice.map(&:chr).join
+        pad_array(slice, size).map(&:chr).join
       end
-      slices << ("\x00" * size) unless slices.size.even?
+      slices << padding_block(size) unless slices.size.even?
       slices.each_slice(2).to_enum
+    end
+
+    def pad_array(array, size)
+      array + [0] * (size - array.size)
+    end
+
+    def padding_block(size)
+      "\x00" * size
     end
   end
 end
