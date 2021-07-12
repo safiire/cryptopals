@@ -25,7 +25,7 @@ module Cryptopals
     end
 
     def rank_results(results, max: 3)
-      results.sort_by { |result| result.last }.map(&:first).take(max)
+      results.sort_by(&:last).map(&:first).take(max)
     end
 
     def normalized_hamming(a, b)

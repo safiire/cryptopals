@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
-
 RSpec.describe(Cryptopals::CyclicXorKeysize) do
   describe '.call' do
     let(:ciphertext) do
