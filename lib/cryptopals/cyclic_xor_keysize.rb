@@ -11,7 +11,7 @@ module Cryptopals
     def call(ciphertext, max_keysize)
       results = []
       2.upto(max_keysize) do |key_size|
-        hamming_distances = each_slice(ciphertext, key_size).map do |(block1, block2)|
+        hamming_distances = adjacent_blocks(ciphertext, key_size).map do |(block1, block2)|
           normalized_hamming(block1, block2)
         end
         results << create_result(hamming_distances, key_size)
@@ -34,7 +34,7 @@ module Cryptopals
       HammingDistance.call(a, b) / a.size.to_f
     end
 
-    def each_slice(string, size)
+    def adjacent_blocks(string, size)
       slices = string.bytes.each_slice(size).map do |slice|
         pad_array(slice, size).map(&:chr).join
       end
