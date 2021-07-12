@@ -21,13 +21,16 @@ module Cryptopals
     def transpose_to_columns(ciphertext, key_size)
       [].tap do |columns|
         ciphertext.bytes.each_slice(key_size) do |block|
-          block += [0] * (key_size - block.size)
-          block.each_with_index do |byte, i|
-            columns[i] ||= ''
-            columns[i] += byte.chr
+          padded_block(block, key_size).each_with_index do |byte, col|
+            columns[col] ||= ''
+            columns[col] += byte.chr
           end
         end
       end
+    end
+
+    def padded_block(block, key_size)
+      block + [0] * (key_size - block.size)
     end
   end
 end
