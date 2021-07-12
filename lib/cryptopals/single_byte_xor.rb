@@ -5,7 +5,7 @@ module Cryptopals
     Result = Struct.new(:plaintext, :key)
 
     def self.crack(string)
-      new.call(string.hex2bytes)
+      new.crack(string.hex2bytes)
     end
 
     def self.encrypt(string, key)
@@ -16,7 +16,7 @@ module Cryptopals
       encrypt(string, key)
     end
 
-    def call(ciphertext)
+    def crack(ciphertext)
       highest_score = 0
 
       256.times.reduce(empty_result) do |result, key|

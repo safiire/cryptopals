@@ -52,9 +52,9 @@ RSpec.describe(Cryptopals::HammingDistance) do
       let(:p1) { rand(256).chr }
       let(:p2) { rand(256).chr }
       let(:hamming_distance_plaintext) { described_class.call(p1, p2) }
+
       let(:k1) { "\xde" }
       let(:k2) { "\xad" }
-
       let(:c1) { p1.fixed_xor(k1) }
       let(:c2) { p2.fixed_xor(k2) }
       let(:hamming_distance_ciphertext_different) { described_class.call(c1, c2) }

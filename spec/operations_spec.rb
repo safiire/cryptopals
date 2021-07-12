@@ -9,7 +9,7 @@ RSpec.describe(Cryptopals::Operations) do
       let(:b) { 'lengths' }
 
       it 'throws an error' do
-        expect { result }.to raise_error(Cryptopals::Operations::DifferingLengths)
+        expect { result }.to raise_error(described_class::DifferingLengths)
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe(Cryptopals::Operations) do
     let(:result2) { described_class.cyclic_xor(b, a) }
     let(:correct) { 'iceiceicei' }
 
-    context 'when the second term is shorter' do
+    context 'when one term is shorter' do
       let(:a) { "\x00" * 10 }
       let(:b) { 'ice' }
 
