@@ -18,11 +18,11 @@ module Cryptopals
 
     private
 
-    def transpose_to_columns(string, size)
+    def transpose_to_columns(ciphertext, key_size)
       [].tap do |columns|
-        string.bytes.each_slice(size) do |slice|
-          slice += [0] * (size - slice.size)
-          slice.each_with_index do |byte, i|
+        ciphertext.bytes.each_slice(key_size) do |block|
+          block += [0] * (key_size - block.size)
+          block.each_with_index do |byte, i|
             columns[i] ||= ''
             columns[i] += byte.chr
           end
