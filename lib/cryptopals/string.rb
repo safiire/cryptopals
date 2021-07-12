@@ -12,4 +12,12 @@ class String
   def hex2base64
     Cryptopals::Conversion.hex2base64(self)
   end
+
+  def fixed_xor(other)
+    Cryptopals::Operations.fixed_xor(self, other)
+  end
+
+  def cyclic_xor(other)
+    Cryptopals::Operations.cyclic_xor(self, other)
+  end
 end
