@@ -2,18 +2,20 @@
 
 module Cryptopals
   class CyclicXor
-    def self.crack(ciphertext)
-      new.crack(ciphertext)
+    Result = Struct.new(:plaintext, :key)
+
+    def self.crack(ciphertext, max_keysize: 40)
+      new.crack(ciphertext, max_keysize)
     end
 
-    def crack(ciphertext)
-      key_size = CyclicXorKeysize.call(ciphertext).first
+    def crack(ciphertext, max_keysize)
+      key_size = CyclicXorKeysize.call(ciphertext, max_keysize: max_keysize).first
 
       key = transpose_to_columns(ciphertext, key_size).map do |single_byte_xor|
         SingleByteXor.crack(single_byte_xor).key.chr
       end.join
 
-      ciphertext.cyclic_xor(key)
+      Result.new(ciphertext.cyclic_xor(key), key)
     end
 
     private
