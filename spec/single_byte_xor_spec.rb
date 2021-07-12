@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe(Cryptopals::SingleByteXor) do
+  describe '.encrypt' do
+    let(:key) { 0xaf }
+    let(:plaintext) { 'This is some plaintext' }
+    let(:encrypted) { described_class.encrypt(plaintext, key) }
+    let(:decrypted) { described_class.decrypt(encrypted, key) }
+
+    context 'when inverting the operation' do
+      it 'is the inverse' do
+        expect(decrypted).to eq(plaintext)
+      end
+    end
+  end
+
   describe '.crack' do
     let(:result) { described_class.crack(ciphertext) }
 
@@ -11,6 +24,18 @@ RSpec.describe(Cryptopals::SingleByteXor) do
 
       it 'finds the key and cracks the ciphertext' do
         expect(result.key).to eq(88)
+        expect(result.plaintext).to eq(plaintext)
+      end
+    end
+
+    context 'when cracking our own message' do
+      let(:key) { 0xaf }
+      let(:plaintext) { 'Lets get cracking' }
+      let(:ciphertext) { described_class.encrypt(plaintext, key).bytes2hex }
+      let(:result) { described_class.crack(ciphertext) }
+
+      it 'finds the key and cracks the ciphertext' do
+        expect(result.key).to eq(key)
         expect(result.plaintext).to eq(plaintext)
       end
     end

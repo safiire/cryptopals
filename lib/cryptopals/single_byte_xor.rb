@@ -8,8 +8,12 @@ module Cryptopals
       new.call(string.hex2bytes)
     end
 
-    def self.decrypt(ciphertext, key)
-      ciphertext.bytes.map { |byte| (byte ^ key).chr }.join
+    def self.encrypt(string, key)
+      string.bytes.map { |byte| (byte ^ key).chr }.join
+    end
+
+    def self.decrypt(string, key)
+      encrypt(string, key)
     end
 
     def call(ciphertext)
