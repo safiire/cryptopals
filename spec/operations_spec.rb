@@ -39,4 +39,23 @@ RSpec.describe(Cryptopals::Operations) do
       end
     end
   end
+
+  describe '.aes_128_ecb_decrypt' do
+    let(:key) { 'YELLOW SUBMARINE' }
+    let(:ciphertext) do
+      path = File.join(__dir__, 'fixtures/challenge7.b64')
+      contents = File.read(path)
+      Base64.decode64(contents)
+    end
+    let(:plaintext) do
+      path = File.join(__dir__, 'fixtures/challenge7.decrypted')
+      File.read(path)
+    end
+
+    context 'when decrypting challenge7' do
+      it 'should decrypt the file' do
+        expect(ciphertext.aes_128_ecb_decrypt(key)).to eq(plaintext)
+      end
+    end
+  end
 end

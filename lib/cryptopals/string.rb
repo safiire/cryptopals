@@ -20,4 +20,8 @@ class String
   def cyclic_xor(other)
     Cryptopals::Operations.cyclic_xor(self, other)
   end
+
+  def aes_128_ecb_decrypt(key)
+    Cryptopals::Operations.aes_128_ecb_decrypt(self, key)
+  end
 end
