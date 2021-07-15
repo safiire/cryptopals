@@ -8,13 +8,12 @@ module Cryptopals
 
     def decrypt(ciphertext, iv, key)
       plaintext = ''
-      prev_block = iv
 
       ciphertext.bytes.each_slice(0x10) do |block|
         block = block.map(&:chr).join
 
-        plaintext += PKCS7.unpad(ecb(:decrypt, block, key) ^ prev_block)
-        prev_block = block
+        plaintext += PKCS7.unpad(ecb(:decrypt, block, key) ^ iv)
+        iv = block
       end
       plaintext
     end
