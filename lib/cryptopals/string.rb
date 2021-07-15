@@ -17,6 +17,10 @@ class String
     Cryptopals::Operations.fixed_xor(self, other)
   end
 
+  def ^(other)
+    fixed_xor(other)
+  end
+
   def cyclic_xor(other)
     Cryptopals::Operations.cyclic_xor(self, other)
   end
