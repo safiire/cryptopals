@@ -58,5 +58,15 @@ RSpec.describe(Cryptopals::Operations) do
         expect(ciphertext.aes_128_ecb_decrypt(key)).to eq(plaintext)
       end
     end
+
+    context 'when encrypting aes cbc' do
+      let(:key) { 'YELLOW SUBMARINE' }
+      let(:plaintext) { 'This is some text to encrypt and decrypt' }
+      let(:ciphertext) { plaintext.aes_128_ecb_encrypt(key) }
+
+      it 'can decrypt it' do
+        expect(ciphertext.aes_128_ecb_decrypt(key)).to eq(plaintext)
+      end
+    end
   end
 end

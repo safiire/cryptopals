@@ -25,7 +25,19 @@ class String
     Cryptopals::Operations.cyclic_xor(self, other)
   end
 
+  def aes_128_ecb_encrypt(key)
+    Cryptopals::Operations.aes_128_ecb_encrypt(self, key)
+  end
+
   def aes_128_ecb_decrypt(key)
     Cryptopals::Operations.aes_128_ecb_decrypt(self, key)
+  end
+
+  def aes_128_cbc_encrypt(key, iv)
+    Cryptopals::AESCBC.encrypt(self, key, iv)
+  end
+
+  def aes_128_cbc_decrypt(key, iv)
+    Cryptopals::AESCBC.decrypt(self, key, iv)
   end
 end

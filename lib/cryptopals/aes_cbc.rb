@@ -2,8 +2,19 @@
 
 module Cryptopals
   class AESCBC
+    def self.encrypt(plaintext, iv, key)
+      new.encrypt(plaintext, iv, key)
+    end
+
     def self.decrypt(ciphertext, iv, key)
       new.decrypt(ciphertext, iv, key)
+    end
+
+    def encrypt(plaintext, iv, key)
+      cipher = OpenSSL::Cipher.new('aes-128-cbc').encrypt
+      cipher.key = key
+      cipher.iv = iv
+      cipher.update(plaintext) + cipher.final
     end
 
     def decrypt(ciphertext, iv, key)
