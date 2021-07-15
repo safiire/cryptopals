@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe(Cryptopals::ManualAESCBC) do
+RSpec.describe(Cryptopals::AESCBC) do
   describe '.decrypt' do
     let(:iv) { "\x00" * 0x10 }
     let(:key) { 'YELLOW SUBMARINE' }

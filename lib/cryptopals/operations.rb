@@ -18,7 +18,7 @@ module Cryptopals
     end
 
     def self.aes_128_ecb_decrypt(ciphertext, key)
-      cipher = OpenSSL::Cipher.new('AES-128-ECB').decrypt
+      cipher = OpenSSL::Cipher.new('aes-128-ecb').decrypt
       cipher.key = key
       cipher.update(ciphertext) + cipher.final
     end

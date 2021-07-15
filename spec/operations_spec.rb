@@ -20,6 +20,7 @@ RSpec.describe(Cryptopals::Operations) do
 
       it 'xors them together' do
         expect(result).to eq(correct)
+        expect(a ^ b).to eq(correct)
       end
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Cryptopals
-  class ManualAESCBC
+  class AESCBC
     def self.decrypt(ciphertext, iv, key)
       new.decrypt(ciphertext, iv, key)
     end
