@@ -39,8 +39,9 @@ RSpec.describe(Cryptopals::HammingDistance) do
       let(:hamming_distance_plaintext) { described_class.call(p1, p2) }
 
       let(:key) { rand(256) }
-      let(:c1) { p1.fixed_xor(key.chr) }
-      let(:c2) { p2.fixed_xor(key.chr) }
+      let(:c1) { p1 ^ key.chr }
+      let(:c2) { p2 ^ key.chr }
+
       let(:hamming_distance_ciphertext) { described_class.call(c1, c2) }
 
       it 'has the same hamming distance when encrypted' do
@@ -55,8 +56,8 @@ RSpec.describe(Cryptopals::HammingDistance) do
 
       let(:k1) { "\xde" }
       let(:k2) { "\xad" }
-      let(:c1) { p1.fixed_xor(k1) }
-      let(:c2) { p2.fixed_xor(k2) }
+      let(:c1) { p1 ^ k1 }
+      let(:c2) { p2 ^ k2 }
       let(:hamming_distance_ciphertext_different) { described_class.call(c1, c2) }
 
       it 'has different hamming distance when encrypted' do
