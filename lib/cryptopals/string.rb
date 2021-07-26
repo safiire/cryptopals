@@ -54,7 +54,7 @@ class String
   end
 
   def number_of_blocks(blocksize: 0x10)
-    (self.bytesize / blocksize.to_f).ceil
+    (bytesize / blocksize.to_f).ceil
   end
 
   def first_block
