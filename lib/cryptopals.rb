@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require_relative 'cryptopals/aes_blocksize'
 require_relative 'cryptopals/aes_cbc'
+require_relative 'cryptopals/aes_mode'
+require_relative 'cryptopals/aes_oracle'
 require_relative 'cryptopals/conversion'
 require_relative 'cryptopals/cyclic_xor'
 require_relative 'cryptopals/cyclic_xor_keysize'
-require_relative 'cryptopals/encryption_oracle'
 require_relative 'cryptopals/english'
 require_relative 'cryptopals/hamming_distance'
 require_relative 'cryptopals/operations'

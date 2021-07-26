@@ -41,7 +41,7 @@ RSpec.describe(Cryptopals::Operations) do
     end
   end
 
-  describe '.aes_128_ecb_decrypt' do
+  describe '.aes_ecb_decrypt' do
     let(:key) { 'YELLOW SUBMARINE' }
     let(:ciphertext) do
       path = File.join(__dir__, 'fixtures/challenge7.b64')
@@ -55,18 +55,35 @@ RSpec.describe(Cryptopals::Operations) do
 
     context 'when decrypting challenge7' do
       it 'should decrypt the file' do
-        expect(ciphertext.aes_128_ecb_decrypt(key)).to eq(plaintext)
+        expect(ciphertext.aes_ecb_decrypt(key)).to eq(plaintext)
       end
     end
 
     context 'when encrypting aes cbc' do
       let(:key) { 'YELLOW SUBMARINE' }
       let(:plaintext) { 'This is some text to encrypt and decrypt' }
-      let(:ciphertext) { plaintext.aes_128_ecb_encrypt(key) }
+      let(:ciphertext) { plaintext.aes_ecb_encrypt(key) }
 
       it 'can decrypt it' do
-        expect(ciphertext.aes_128_ecb_decrypt(key)).to eq(plaintext)
+        expect(ciphertext.aes_ecb_decrypt(key)).to eq(plaintext)
       end
+    end
+  end
+
+  describe '.aes_ecb_single' do
+    # TODO
+  end
+
+  describe '.block_number' do
+    let(:block0) { "\x00" * 0x10 }
+    let(:block1) { "\x01" * 0x10 }
+    let(:string) { block0 + block1 }
+    let(:result0) { string.block_number(0) }
+    let(:result1) { string.block_number(1) }
+
+    it 'fetches the correct block data' do
+      expect(result0).to eq(block0)
+      expect(result1).to eq(block1)
     end
   end
 end

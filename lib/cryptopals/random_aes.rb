@@ -4,22 +4,28 @@ require 'securerandom'
 
 module Cryptopals
   class RandomAES
+    UNKNOWN_KEY = "(q\xB9$\xBB.DH\xB1\"V\xCEX\xA10\x0E"
+
     def self.call(plaintext, mode = rand(2) == 1 ? :ecb : :cbc)
       new.call(plaintext, mode)
     end
 
-    def call(plaintext, mode)
-      mode == :ecb ? ecb(plaintext) : cbc(plaintext)
+    def self.ecb_with_unknown_key(plaintext)
+      new.call(plaintext, :ecb, UNKNOWN_KEY)
+    end
+
+    def call(plaintext, mode, key = random_key)
+      mode == :ecb ? ecb(plaintext, key) : cbc(plaintext, key)
     end
 
     private
 
-    def ecb(plaintext)
-      plaintext.aes_128_ecb_encrypt(random_key)
+    def ecb(plaintext, key)
+      plaintext.aes_ecb_encrypt(key)
     end
 
-    def cbc(plaintext)
-      plaintext.aes_128_cbc_encrypt(random_key, random_iv)
+    def cbc(plaintext, key)
+      plaintext.aes_cbc_encrypt(key, random_iv)
     end
 
     def random_key

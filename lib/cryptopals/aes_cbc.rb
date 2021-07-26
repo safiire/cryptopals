@@ -23,19 +23,11 @@ module Cryptopals
       ciphertext.bytes.each_slice(0x10) do |block|
         block = block.map(&:chr).join
 
-        plaintext += PKCS7.unpad(ecb(:decrypt, block, key) ^ iv)
+        decrypted = block.aes_ecb_single(:decrypt, key)
+        plaintext += PKCS7.unpad(decrypted ^ iv)
         iv = block
       end
       plaintext
-    end
-
-    private
-
-    def ecb(method, block, key)
-      cipher = OpenSSL::Cipher.new('aes-128-ecb').send(method)
-      cipher.key = key
-      cipher.padding = 0
-      cipher.update(block)
     end
   end
 end

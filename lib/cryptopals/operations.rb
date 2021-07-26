@@ -17,16 +17,23 @@ module Cryptopals
       larger.bytes.zip(smaller.bytes.cycle).map { |(x, y)| (x ^ y).chr }.join
     end
 
-    def self.aes_128_ecb_encrypt(plaintext, key)
-      cipher = OpenSSL::Cipher.new('aes-128-ecb').encrypt
-      cipher.key = key
-      cipher.update(plaintext) + cipher.final
-    end
-
-    def self.aes_128_ecb_decrypt(ciphertext, key)
-      cipher = OpenSSL::Cipher.new('aes-128-ecb').decrypt
+    def self.aes_ecb(method, ciphertext, key)
+      cipher = OpenSSL::Cipher.new('aes-128-ecb').send(method)
       cipher.key = key
       cipher.update(ciphertext) + cipher.final
+    end
+
+    def self.aes_ecb_single(method, block, key)
+      cipher = OpenSSL::Cipher.new('aes-128-ecb').send(method)
+      cipher.key = key
+      cipher.padding = 0
+      cipher.update(block)
+    end
+
+    def self.block_number(string, n, block_size: 0x10)
+      start = block_size * n
+      finish = block_size * n.succ
+      string[start...finish]
     end
   end
 end
