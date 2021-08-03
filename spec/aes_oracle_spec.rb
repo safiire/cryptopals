@@ -33,5 +33,18 @@ RSpec.describe(Cryptopals::AESOracle) do
         expect(result).to eq(unknown_plaintext)
       end
     end
+
+    context 'when given aes cbc mode' do
+      let(:unknown_plaintext) { 'Anything, doesnt matter' }
+      let(:oracle) do
+        lambda do |user_controlled|
+          Cryptopals::RandomAES.cbc_with_unknown_key(user_controlled + unknown_plaintext)
+        end
+      end
+
+      it 'throws an error' do
+        expect { result }.to raise_error(described_class::NotECB)
+      end
+    end
   end
 end

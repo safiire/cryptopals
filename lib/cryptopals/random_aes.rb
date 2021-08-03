@@ -14,6 +14,10 @@ module Cryptopals
       new.call(plaintext, :ecb, UNKNOWN_KEY)
     end
 
+    def self.cbc_with_unknown_key(plaintext)
+      new.call(plaintext, :cbc, UNKNOWN_KEY)
+    end
+
     def call(plaintext, mode, key = random_key)
       mode == :ecb ? ecb(plaintext, key) : cbc(plaintext, key)
     end

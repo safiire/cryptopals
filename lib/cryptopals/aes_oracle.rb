@@ -5,6 +5,7 @@ require 'pry-byebug'
 module Cryptopals
   class AESOracle
     ONE_PADDING_BYTE = "\x01"
+    class NotECB < StandardError; end
 
     def self.crack_ecb(oracle)
       new(oracle).crack_ecb
@@ -12,6 +13,7 @@ module Cryptopals
 
     def initialize(oracle)
       @oracle = oracle
+      ensure_ecb_mode!
       @initial_input_size, @focused_block = inital_sizes
     end
 
@@ -32,6 +34,11 @@ module Cryptopals
     private
 
     attr_reader :oracle, :initial_input_size, :focused_block
+
+    def ensure_ecb_mode!
+      ciphertext = oracle.call('A' * 64)
+      raise NotECB unless AESMode.detect_mode(ciphertext) == :ecb
+    end
 
     def inital_sizes
       with_no_input = oracle.call('')
