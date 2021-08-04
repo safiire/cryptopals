@@ -15,8 +15,8 @@ RSpec.describe(Cryptopals::AESCBCBitflip) do
 
     let(:result) { described_class.forge_admin(server) }
 
-    context '' do
-      it '' do
+    context 'when allowed to choose the userdata field' do
+      it 'injects an admin=true field' do
         expect(described_class.admin?(result)).to eq(true)
       end
     end
