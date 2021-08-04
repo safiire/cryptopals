@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
-
 RSpec.describe(Cryptopals::PKCS7) do
   describe '.pad' do
     let(:size) { 0x10 }
@@ -67,6 +65,14 @@ RSpec.describe(Cryptopals::PKCS7) do
 
       it 'returns an empty string' do
         expect(result).to eq('')
+      end
+    end
+
+    context 'when given a block with too little padding' do
+      let(:block) { "1234567890abc\x02\x02" }
+
+      xit 'throws an error' do
+        expect { result }.to raise_error(described_class::InvalidPadding)
       end
     end
   end

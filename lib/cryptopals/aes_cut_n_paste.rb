@@ -2,15 +2,15 @@
 
 module Cryptopals
   class AESCutNPaste
-    def self.profile_for(email, role='user')
+    def self.profile_for(email, role = 'user')
       email = email.gsub(/&=/, '')
-      cookie = {email: email, uid: 10, role: role}
+      cookie = { email: email, uid: 10, role: role }
       plaintext = cookie.map { |key, value| [key, value].join('=') }.join('&')
 
       RandomAES.ecb_with_unknown_key(plaintext)
     end
 
-    def self.is_admin?(ciphertext)
+    def self.admin?(ciphertext)
       plaintext = ciphertext.aes_ecb_decrypt(RandomAES::UNKNOWN_KEY)
       Hash[URI.decode_www_form(plaintext)]['role'] == 'admin'
     end
