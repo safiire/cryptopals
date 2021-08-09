@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+# encoding: ASCII-8BIT
+
+require 'bundler/setup'
+require 'cryptopals'
+require 'json'
+
+RHOST = '139.59.166.56'
+RPORT = '32519'
+
+def oracle(username: "\n", password: "\n", transform: ->() { "\n" })
+  {}.tap do |ret|
+    sock = Sock.new(RHOST, RPORT)
+    sock.recvuntil('username: ')
+    sock.send(username)
+    sock.recvuntil('password: ')
+    sock.send(password)
+    sock.recvuntil('Leaked ciphertext: ')
+    ciphertext_hex = sock.recvuntil("\n").chomp
+
+    ret[:hex] = ciphertext_hex
+    ret[:blocks] = ciphertext_hex.hex2bytes.number_of_blocks
+
+    sock.recvuntil('enter ciphertext: ')
+    ret[:transform] = transform.call(ciphertext_hex)
+
+    sock.send(ret[:transform])
+    ret[:response] = sock.recv(100)
+    sock.close
+  end
+end
+
+# |1 2 3 4 5 6 7 8 9 0 A B C D E F|
+# |-------------------------------|
+# |l o g g e d _ u s e r n a m e =|
+# |` d m i n & p a s s w o r d = g|
+# |0 l d 3 n _ b 0 y X X X X X X X|
+
+transform = lambda do |ciphertext_hex|
+  mask = "\x01" + "\x00" * 15
+  ciphertext = ciphertext_hex.hex2bytes
+
+  [
+    ciphertext.block_number(0) ^ mask,
+    ciphertext.block_number(1),
+    ciphertext.block_number(2)
+  ].join.bytes2hex
+end
+
+username = '`dmin'
+password = 'g0ld3n_b0y'
+
+puts JSON.pretty_generate(oracle(username: username, password: password, transform: transform))
+

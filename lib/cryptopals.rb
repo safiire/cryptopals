@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pwn'
 require_relative 'cryptopals/aes_blocksize'
 require_relative 'cryptopals/aes_cbc'
 require_relative 'cryptopals/aes_cbc_bitflip'
