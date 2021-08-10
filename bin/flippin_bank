@@ -52,4 +52,3 @@ username = '`dmin'
 password = 'g0ld3n_b0y'
 
 puts JSON.pretty_generate(oracle(username: username, password: password, transform: transform))
-
