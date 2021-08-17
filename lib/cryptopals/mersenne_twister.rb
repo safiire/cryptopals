@@ -18,7 +18,7 @@ module Cryptopals
 
     def srand(seed)
       self.mt = Array.new(N, 0)
-      set_last_index
+      set_index(N)
 
       N.times do |n|
         prev = mt[n.pred]
@@ -43,7 +43,7 @@ module Cryptopals
         y_shifted ^= MATRIX_A if y.odd?
         mt[n] = mt[(n + M) % N] ^ y_shifted
       end
-      reset_index
+      set_index(0)
     end
 
     def temper(y)
@@ -58,12 +58,8 @@ module Cryptopals
       index >= N
     end
 
-    def reset_index
-      self.index = 0
-    end
-
-    def set_last_index
-      self.index = N
+    def set_index(n)
+      self.index = n
     end
   end
 end
