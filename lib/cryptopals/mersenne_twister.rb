@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module Cryptopals
-  N = 624
-  M = 397
-  F = 0x6c078965
-  DEFAULT_SEED = 5489
-
-  MASK32 = 0xffffffff
-  MATRIX_A = 0x9908b0df
-  UPPER_MASK = 0x80000000
-  LOWER_MASK = 0x7fffffff
-
   class MersenneTwister
+    N = 624
+    M = 397
+    F = 0x6c078965
+    DEFAULT_SEED = 5489
+
+    MASK32 = 0xffffffff
+    MATRIX_A = 0x9908b0df
+    UPPER_MASK = 0x80000000
+    LOWER_MASK = 0x7fffffff
+
     def initialize(seed = DEFAULT_SEED)
       srand(seed)
     end
