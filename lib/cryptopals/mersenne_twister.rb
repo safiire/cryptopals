@@ -32,9 +32,19 @@ module Cryptopals
       temper(mt[index]).tap { self.index += 1 }
     end
 
-    private
+    def replace_state(ary)
+      self.mt = ary.dup
+    end
+
+    def ==(other)
+      self.mt == other.mt
+    end
+
+    protected
 
     attr_accessor :index, :mt
+
+    private
 
     def twist
       N.times do |n|
