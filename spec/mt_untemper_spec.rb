@@ -3,17 +3,6 @@
 RSpec.describe(Cryptopals::MTUntemper) do
   let(:uint32_max) { 2**32 - 1 }
 
-  describe '.untemper' do
-    let(:seed) { Cryptopals::MersenneTwister::DEFAULT_SEED }
-    let(:mt) { Cryptopals::MersenneTwister.new(seed) }
-    let(:get_next) { -> { mt.rand_uint32 } }
-    let(:clone) { described_class.clone(get_next) }
-
-    it 'should clone the generator' do
-      expect(clone).to eq(mt)
-    end
-  end
-
   describe '.undo_xor_lsr' do
     let(:y) { x ^ (x >> shift) }
     let(:result) { described_class.undo_xor_lsr(y, shift) }
@@ -28,7 +17,7 @@ RSpec.describe(Cryptopals::MTUntemper) do
     end
 
     context 'when undoing this operation with random arguments' do
-      let(:shift) { Random.rand(31) }
+      let(:shift) { Random.rand(1..31) }
       let(:x) { Random.rand(uint32_max) }
 
       it 'gives the correct result' do
@@ -52,7 +41,7 @@ RSpec.describe(Cryptopals::MTUntemper) do
     end
 
     context 'when undoing this operation with random arguments' do
-      let(:shift) { Random.rand(31) }
+      let(:shift) { Random.rand(1..31) }
       let(:x) { Random.rand(uint32_max) }
       let(:c) { Random.rand(uint32_max) }
 

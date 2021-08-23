@@ -12,6 +12,12 @@ module Cryptopals
     UPPER_MASK = 0x80000000
     LOWER_MASK = 0x7fffffff
 
+    def self.clone(get_next)
+      new.tap do |mt|
+        mt.replace_state(624.times.map { MTUntemper.untemper(get_next.call) })
+      end
+    end
+
     def initialize(seed = DEFAULT_SEED)
       srand(seed)
     end
@@ -36,17 +42,11 @@ module Cryptopals
       self.mt = ary.dup
     end
 
-    def ==(other)
-      self.mt == other.mt
-    end
-
-    protected
+    private
 
     attr_accessor :index, :mt
 
-    private
-
-    def twist
+    def twist # rubocop:disable Metrics/AbcSize
       N.times do |n|
         y = ((mt[n] & UPPER_MASK) | (mt[n.succ % N] & LOWER_MASK)) & MASK32
         y_shifted = y >> 1

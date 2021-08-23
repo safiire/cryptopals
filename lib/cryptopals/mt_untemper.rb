@@ -4,12 +4,6 @@ module Cryptopals
   class MTUntemper
     MASK32 = 0xffffffff
 
-    def self.clone(get_next)
-      MersenneTwister.new.tap do |mt|
-        mt.replace_state(624.times.map { untemper(get_next.call) })
-      end
-    end
-
     def self.untemper(value)
       y = undo_xor_lsr(value, 18)
       y = undo_xor_lsl_and(y, 15, 0xefc60000)

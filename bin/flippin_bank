@@ -10,7 +10,7 @@ RHOST = '139.59.166.56'
 RPORT = '32519'
 NULL_TRANSFORM = -> { "\n" }
 
-def oracle(username: "\n", password: "\n", transform: NULL_TRANSFORM)
+def oracle(username: "\n", password: "\n", transform: NULL_TRANSFORM) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   {}.tap do |ret|
     sock = Sock.new(RHOST, RPORT)
     sock.recvuntil('username: ')
