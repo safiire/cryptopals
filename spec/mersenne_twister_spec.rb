@@ -36,7 +36,6 @@ RSpec.describe(Cryptopals::MersenneTwister) do
       1000.times.map { clone.rand_uint32 }
     end
 
-
     context 'when given any mersenne twister' do
       it 'clones it' do
         expect(cloned_outputs).to eq(outputs)
