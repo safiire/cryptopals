@@ -28,6 +28,9 @@ Style/ExplicitBlockArgument:
 Naming/AccessorMethodName:
   Enabled: false
 
+Style/MultilineBlockChain:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
